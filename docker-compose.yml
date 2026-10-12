@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+
+  # --- LARAVEL APP (PHP-FPM) ---
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lmsbackend_app
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - lmsbackend
+    depends_on:
+      - redis
+
+  # --- NGINX ---
+  nginx:
+    image: nginx:stable
+    container_name: lmsbackend_nginx
+    ports:
+      - "8000:80"        # React buraya bağlanacak
+    volumes:
+      - ./:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - lmsbackend
+
+  # --- REDIS ---
+  redis:
+    image: redis:7
+    container_name: lmsbackend_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - lmsbackend
+
+networks:
+  lmsbackend:
+    driver: bridge
