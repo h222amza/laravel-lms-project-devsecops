@@ -2,7 +2,7 @@ import { useState } from "react";
 import http from "../api/http";
 import { useParams } from "react-router-dom";
 
-const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000") + "/";
+const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/";
 
 function ChatPage() {
   const { instructorId } = useParams(); // /chat/:instructorId

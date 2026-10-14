@@ -4,7 +4,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { getConversationMessages, getInbox } from "../api/messages";
 import http from "../api/http";
 
-const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000") + "/";
+const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/";
 
 function ConversationPage() {
   const { conversationId } = useParams();

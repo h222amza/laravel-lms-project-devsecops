@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCourseContent, startLesson } from "../api/myCourses";
 
-const FILE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000") + "/"; // video + doc için
+const FILE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/"; // video + doc için
 
 function MyCourseDetailPage() {
   const { id } = useParams(); // course id

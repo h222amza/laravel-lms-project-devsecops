@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getCategoryById } from "../api/public";
 import { useNavigate } from "react-router-dom";
 
-const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000") + "/";
+const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/";
 
 function CategoryPage() {
   const { id } = useParams();

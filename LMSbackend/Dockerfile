@@ -91,9 +91,21 @@ RUN mkdir -p \
         /var/www/html/storage/framework/views \
         /var/www/html/storage/logs \
         /var/www/html/bootstrap/cache \
+        /var/www/html/public/courses \
+        /var/www/html/public/categories \
+        /var/www/html/public/lessons/images \
+        /var/www/html/public/lessons/videos \
+        /var/www/html/public/lessons/documents \
+        /var/www/html/public/chat \
+        /var/www/html/public/site \
     && chown -R www-data:www-data \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache \
+        /var/www/html/public/courses \
+        /var/www/html/public/categories \
+        /var/www/html/public/lessons \
+        /var/www/html/public/chat \
+        /var/www/html/public/site \
     && nginx -t \
     && php-fpm -t
 

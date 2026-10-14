@@ -1,0 +1,79 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: lms
+      MYSQL_USER: lms_user
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in root .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in root .env}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - lms-network
+
+  backend:
+    build:
+      context: ./LMSbackend
+    restart: unless-stopped
+    env_file:
+      - ./LMSbackend/.env
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: ${APP_URL:-http://localhost:3000}
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_DATABASE: lms
+      DB_USERNAME: lms_user
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in root .env}
+
+
+    expose:
+      - "8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - courses_uploads:/var/www/html/public/courses
+      - categories_uploads:/var/www/html/public/categories
+      - lessons_uploads:/var/www/html/public/lessons
+      - chat_uploads:/var/www/html/public/chat
+      - site_uploads:/var/www/html/public/site
+      - laravel_storage:/var/www/html/storage
+    networks:
+      - lms-network
+
+  frontend:
+    build:
+      context: ./LMS-frontend
+      args:
+        REACT_APP_API_URL: /api
+        REACT_APP_BACKEND_URL: ""
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - lms-network
+
+volumes:
+  mysql_data:
+  courses_uploads:
+  categories_uploads:
+  lessons_uploads:
+  chat_uploads:
+  site_uploads:
+  laravel_storage:
+
+networks:
+  lms-network:
+    driver: bridge

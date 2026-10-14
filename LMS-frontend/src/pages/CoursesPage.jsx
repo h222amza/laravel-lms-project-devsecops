@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getGuestCourses } from "../api/public";
 
-const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000") + "/";
+const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/";
 
 function CoursesPage() {
   const [courses, setCourses] = useState([]);

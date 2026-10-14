@@ -7,7 +7,7 @@ import {
   deleteCategory,
 } from "../../api/superAdmin";
 
-const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000") + "/"; // backend public path
+const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/"; // backend public path
 
 export default function CategoryManagement() {
   const [categories, setCategories] = useState([]);

@@ -4,7 +4,7 @@ import { useCart } from "../context/CartContext";
 import { useState } from "react";
 import { getInbox } from "../api/messages";
 
-const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000") + "/";
+const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/";
 
 function Header({ settings }) {
   const token = localStorage.getItem("authToken");

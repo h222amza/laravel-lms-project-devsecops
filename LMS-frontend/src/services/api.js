@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API_URL =
-  process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/api";
+  process.env.REACT_APP_API_URL || "/api";
 export const getSettings = async () => {
   try {
     const response = await axios.get(`${API_URL}/settings`);

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getMyAdminCourses, deleteAdminCourse } from "../../api/admin";
 import { useNavigate } from "react-router-dom";
 
-const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000") + "/"; // backend public path
+const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/"; // backend public path
 
 export default function MyCoursesPage() {
   const [courses, setCourses] = useState([]);
