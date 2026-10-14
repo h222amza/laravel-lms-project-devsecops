@@ -1,0 +1,16 @@
+.git
+.github
+.env
+.env.*
+!.env.example
+vendor
+node_modules
+public/hot
+public/build
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+Dockerfile-org
+docker-compose.yml
+nginx.conf
