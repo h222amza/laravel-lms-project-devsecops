@@ -62,11 +62,13 @@ export default function AdminConversationPage() {
       }
     }
 
-    load();
-    // receiverId dependency'ye girerse loop'a girer, o yüzden koymuyoruz
+      load();
+    // receiverId is intentionally omitted to avoid rerunning the conversation loader when it is set.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId]);
+   
 
-  const handleSendMessage = async (e) => {
+	  const handleSendMessage = async (e) => {
     e.preventDefault();
 
     if (!newMessage && !attachment) return;

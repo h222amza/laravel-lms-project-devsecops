@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   getAdminCourseById,
   updateAdminCourse,
-  getAdminCategories,
 } from "../../api/admin";
 
 const IMAGE_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "") + "/";
@@ -24,7 +23,6 @@ export default function EditCoursePage() {
   const [existingImage, setExistingImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
 
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -37,8 +35,8 @@ export default function EditCoursePage() {
         setLoading(true);
         setError("");
 
-        const [courseData, categoriesData] = await Promise.all([
-          getAdminCourseById(id),
+         const courseData = await getAdminCourseById(id); 
+	  getAdminCourseById(id),
           getAdminCategories(),
         ]);
 
@@ -53,7 +51,6 @@ export default function EditCoursePage() {
           setExistingImage(IMAGE_BASE_URL + courseData.images[0].image_path);
         }
 
-        setCategories(categoriesData || []);
       } catch (err) {
         console.error("LOAD COURSE ERROR:", err.response?.data || err);
         setError("Failed to load course. Please try again.");

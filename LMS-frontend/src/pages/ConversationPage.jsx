@@ -52,7 +52,9 @@ function ConversationPage() {
     }
 
     load();
-  }, [conversationId]); // receiverId'yi dependency'e koyma, yoksa döngüye girer
+    // receiverId is intentionally omitted to avoid rerunning the loader when it is set.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
