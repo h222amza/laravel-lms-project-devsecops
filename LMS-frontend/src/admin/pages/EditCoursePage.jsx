@@ -36,9 +36,6 @@ export default function EditCoursePage() {
         setError("");
 
          const courseData = await getAdminCourseById(id); 
-	  getAdminCourseById(id),
-          getAdminCategories(),
-        ]);
 
         setCourse(courseData);
         setName(courseData.name || "");
