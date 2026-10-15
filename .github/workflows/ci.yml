@@ -101,25 +101,6 @@ jobs:
           test -n "$ECR_BACKEND_REPOSITORY" || (echo "ECR_BACKEND_REPOSITORY is missing" && exit 1)
           test -n "$ECR_FRONTEND_REPOSITORY" || (echo "ECR_FRONTEND_REPOSITORY is missing" && exit 1)
       
-      - name: Debug GitHub OIDC claims
-        uses: actions/github-script@v7
-        with:
-          script: |
-            core.info(`Repository: ${context.repo.owner}/${context.repo.repo}`);
-            core.info(`Ref: ${context.ref}`);
-            core.info(`Event: ${context.eventName}`);
-
-      - name: Inspect OIDC subject claim
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const token = await core.getIDToken('sts.amazonaws.com');
-            const payload = JSON.parse(
-              Buffer.from(token.split('.')[1], 'base64url').toString()
-            );
-            core.info(`OIDC subject: ${payload.sub}`);
-            core.info(`OIDC audience: ${payload.aud}`);
-
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
